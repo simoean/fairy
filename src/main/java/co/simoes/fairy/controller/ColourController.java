@@ -25,7 +25,7 @@ public final class ColourController extends AbstractController {
 
     /**
      * Executes the sequencing algorithm until program is explicitly terminated.
-     *
+     * <p>
      * <p>All of the red lights are turned on for 1 second, then all the green
      * for 1 second then all the white for 1 second.</p>
      */

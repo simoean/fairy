@@ -25,8 +25,8 @@ public class ControllerFactory {
     /**
      * Populates the map of controllers.
      *
-     * @param sequenceController Sequence Controller instance
-     * @param colourController Colour Controller instance
+     * @param sequenceController  Sequence Controller instance
+     * @param colourController    Colour Controller instance
      * @param alternateController Alternate Controller instance
      */
     @Autowired

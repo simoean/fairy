@@ -25,7 +25,7 @@ public final class AlternateController extends AbstractController {
      * Alternate controller constructor, injects other controllers.
      *
      * @param sequenceController The sequence controller
-     * @param colourController The colour controller
+     * @param colourController   The colour controller
      */
     @Autowired
     AlternateController(@Qualifier("sequence") Controller sequenceController,
@@ -36,7 +36,7 @@ public final class AlternateController extends AbstractController {
 
     /**
      * Executes the sequencing algorithm until explicitly terminated.
-     *
+     * <p>
      * <p>The 'sequence' algorithm runs for 30 seconds, then the 'colour' algorithm
      * for 30 seconds</p>
      */

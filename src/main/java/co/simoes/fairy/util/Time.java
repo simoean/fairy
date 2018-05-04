@@ -14,7 +14,7 @@ public final class Time {
      * of time.
      *
      * @param timeUnit Time unit (seconds, milliseconds, etc.)
-     * @param amount The amount of time units
+     * @param amount   The amount of time units
      */
     public static void sleep(TimeUnit timeUnit, long amount) {
         try {

@@ -1,14 +1,12 @@
 package co.simoes.fairy.model;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * The length of fairy lights.
@@ -38,10 +36,10 @@ public class Length {
     /**
      *
      */
-    public Length() {}
+    public Length() {
+    }
 
     /**
-     *
      * @param numberOfLights
      * @param colours
      */
@@ -55,7 +53,7 @@ public class Length {
      */
     @PostConstruct
     public void init() {
-        for ( int number = 0; number < numberOfLights; number++ ) {
+        for (int number = 0; number < numberOfLights; number++) {
             lights.add(
                     new Light(number + 1, colours.get(number % colours.size()))
             );

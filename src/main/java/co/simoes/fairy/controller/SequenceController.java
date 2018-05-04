@@ -25,7 +25,7 @@ public final class SequenceController extends AbstractController {
 
     /**
      * Executes the sequencing algorithm until explicitly terminated.
-     *
+     * <p>
      * <p>Each light is turned on for 0.5 seconds then off in turn from first to last.</p>
      */
     @Override
