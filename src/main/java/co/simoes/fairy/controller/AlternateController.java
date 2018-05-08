@@ -1,5 +1,6 @@
 package co.simoes.fairy.controller;
 
+import co.simoes.fairy.model.Length;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -18,18 +19,28 @@ import static co.simoes.fairy.util.Time.sleep;
 @Service("alternate")
 public final class AlternateController extends AbstractController {
 
+    /**
+     * Sequence controller.
+     */
     private final Controller sequenceController;
+
+    /**
+     * Colour controller.
+     */
     private final Controller colourController;
 
     /**
-     * Alternate controller constructor, injects other controllers.
+     * Alternate controller constructor, injects length and other controllers.
      *
      * @param sequenceController The sequence controller
      * @param colourController   The colour controller
+     * @param length Length of fairy lights
      */
     @Autowired
     AlternateController(@Qualifier("sequence") Controller sequenceController,
-                        @Qualifier("colour") Controller colourController) {
+                        @Qualifier("colour") Controller colourController,
+                        Length length) {
+        super(length);
         this.sequenceController = sequenceController;
         this.colourController = colourController;
     }
@@ -41,11 +52,9 @@ public final class AlternateController extends AbstractController {
      * for 30 seconds</p>
      */
     @Override
-    public void run() {
-        while (true) {
-            runController(sequenceController);
-            runController(colourController);
-        }
+    public void executeAlgorithm() {
+        runController(sequenceController);
+        runController(colourController);
     }
 
     /*
