@@ -1,11 +1,10 @@
 package co.simoes.fairy.controller;
 
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -18,24 +17,18 @@ import java.util.Optional;
 public class ControllerFactory {
 
     /**
-     * Map holding a reference to available algorithms.
+     * Application context.
      */
-    private final Map<String, Controller> controllers = new HashMap<>();
+    private final ApplicationContext context;
 
     /**
-     * Populates the map of controllers.
+     * Injects the application context.
      *
-     * @param sequenceController  Sequence Controller instance
-     * @param colourController    Colour Controller instance
-     * @param alternateController Alternate Controller instance
+     * @param context Spring application context
      */
     @Autowired
-    public ControllerFactory(@Qualifier("sequence") Controller sequenceController,
-                             @Qualifier("colour") Controller colourController,
-                             @Qualifier("alternate") Controller alternateController) {
-        controllers.put("sequence", sequenceController);
-        controllers.put("colour", colourController);
-        controllers.put("alternate", alternateController);
+    public ControllerFactory(ApplicationContext context) {
+        this.context = context;
     }
 
     /**
@@ -47,9 +40,9 @@ public class ControllerFactory {
     public Optional<Controller> getController(String algorithm) {
         try {
             return Optional.of(
-                    controllers.get(algorithm)
+                    (Controller) context.getBean(algorithm)
             );
-        } catch (NullPointerException npe) {
+        } catch (NoSuchBeanDefinitionException e) {
             System.out.printf("No such algorithm [%s]\n\n", algorithm);
         }
         return Optional.empty();
