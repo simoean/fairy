@@ -9,19 +9,19 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * <h1>Fairy Lights Controller</h1>
- * <p>
+ *
  * <p>This program controls a length of fairy lights given an algorithm as an input.
  * It will execute the algorithm provided until expressly terminated.</p>
- * <p>
+ *
  * <h3>Controller algorithms</h3>
  * <p>The available algorithms are included in the {@code controller} package and
  * implement the {@link Controller} interface. The {@link ControllerFactory} is
  * responsible for returning the requested algorithm.</p>
- * <p>
+ *
  * <h3>Length specification</h3>
  * <p>Classes modelling the length of fairy lights are contained in the
  * {@code model} package.</p>
- * <p>
+ *
  * <h3>Parametrisation (application.properties)</h3>
  * <p>To change the number of lights in the length, set the new value of
  * the {@code length.lights} property.</p>
@@ -33,8 +33,18 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class FairyApplication implements CommandLineRunner {
 
+    /**
+     * Controller factory.
+     */
+    private final ControllerFactory controllerFactory;
+
+    /**
+     * Injects the controller factory.
+     */
     @Autowired
-    private ControllerFactory controllerFactory;
+    public FairyApplication(ControllerFactory controllerFactory) {
+        this.controllerFactory = controllerFactory;
+    }
 
     /**
      * Program entry point.
@@ -69,9 +79,7 @@ public class FairyApplication implements CommandLineRunner {
         final StringBuilder usage = new StringBuilder();
 
         usage.append("Usage:");
-        usage.append("\n  java -cp . co.simoes.FairyLights [algorithm]\n");
-        usage.append("or:");
-        usage.append("\n  java -jar FairyLights.jar [algorithm]\n");
+        usage.append("\n  java -jar $PATH/FairyApplication.jar [algorithm]\n");
 
         usage.append("\nAlgorithms:");
         usage.append("\n  sequence    Each light is turned on for 0.5 seconds then off in turn from first to last");
