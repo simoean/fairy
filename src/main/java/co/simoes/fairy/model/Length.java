@@ -1,15 +1,19 @@
 package co.simoes.fairy.model;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 /**
  * The length of fairy lights.
+ *
+ * <p>Unless present in application properties, by default the length is
+ * initialised with 20 lights, alternating the colours red, green and white,
+ * in this order.</p>
  *
  * @author Antonio Simoes
  */
@@ -22,37 +26,20 @@ public class Length {
     private final List<Light> lights = new ArrayList<>();
 
     /**
-     * Number of lights in the length. Default: '20'
-     */
-    @Value("${length.lights:20}")
-    private int numberOfLights;
-
-    /**
      * Supported light colours. Default: 'red,green,white'
      */
-    @Value("#{'${length.colours:red,green,white}'.split(',')}")
-    private List<String> colours;
+    private final List<String> colours;
 
     /**
+     * Length constructor, initialises the length of fairy lights.
      *
+     * @param numberOfLights Number of lights in the length
+     * @param colours The colours of lights
      */
-    public Length() {
-    }
-
-    /**
-     * @param numberOfLights
-     * @param colours
-     */
-    public Length(int numberOfLights, List<String> colours) {
-        this.numberOfLights = numberOfLights;
+    @Autowired
+    public Length(@Value("${length.lights:20}") int numberOfLights,
+                  @Value("#{'${length.colours:red,green,white}'.split(',')}") List<String> colours) {
         this.colours = colours;
-    }
-
-    /**
-     * Initialize length.
-     */
-    @PostConstruct
-    public void init() {
         for (int number = 0; number < numberOfLights; number++) {
             lights.add(
                     new Light(number + 1, colours.get(number % colours.size()))
