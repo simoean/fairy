@@ -38,7 +38,7 @@ public class Light {
      *
      * @return Light's colour
      */
-    public String getColour() {
+    String getColour() {
         return colour;
     }
 
@@ -47,7 +47,7 @@ public class Light {
      *
      * @return Whether light is lit
      */
-    public boolean isLit() {
+    boolean isLit() {
         return lit;
     }
 
